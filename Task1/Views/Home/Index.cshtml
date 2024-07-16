@@ -1,0 +1,78 @@
+﻿@model Task1.Models.UserModel
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>User Details</title>
+    <link href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css" rel="stylesheet" />
+
+    <!--Add styles-->
+    <style>
+        
+        th {
+            padding: 25px; 
+            text-align: center; 
+        }
+        td {
+            padding: 25px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>User Details</h2>
+
+        <!--Add Searching Feild-->
+        <div>
+            <label for="customSearch">Search by Name or Location:</label>
+            <input type="text" id="customSearch" class="form-control" placeholder="Enter name or location" />
+        </div>
+
+        <table id="userTable" class="display">
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Gender</th>
+                    <th>Date of Birth</th>
+                    <th>Email</th>
+                    <th>Country</th>
+                    <th>Profile Picture</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@Model.FirstName</td>
+                    <td>@Model.LastName</td>
+                    <td>@Model.Gender</td>
+                    <td>@Model.DateOfBirth.ToShortDateString()</td>
+                    <td>@Model.Email</td>
+                    <td>@Model.Country</td>
+                    <td><img src="@Model.ProfilePicture" alt="Profile Picture" /></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#userTable').DataTable({
+                "paging": true, 
+                "searching": true, 
+                "lengthMenu": [5, 10, 25, 50], 
+                "pageLength": 10 
+            });
+
+            // Custom search function for Name or Location
+            $('#customSearch').keyup(function () {
+                table.search(this.value).draw();
+            });
+        });
+    </script>
+</body>
+</html>
